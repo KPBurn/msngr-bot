@@ -27,7 +27,7 @@ app.get('/webhook', (req, res) => {
 
 app.get('/', (req, res) => {
     res.send(`
-        <h1>Front end log in????/<h1>
+        <h1>Front end log in????<h1>
         <p>i dontk now. heroku fucks me up.</p>
 
     `);
