@@ -4,16 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 require('dotenv').config(); // Load environment variables
-
 const app = express();
-
-// Use environment variables
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Webhook verification
 app.get('/webhook', (req, res) => {
     const VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'my_voice_is_my_password_verify_me';
 
@@ -33,7 +27,7 @@ app.get('/', (req, res) => {
     `);
 });
 
-// Webhook to handle messages
+// HANDLE MESSAGE
 app.post('/webhook', (req, res) => {
     const body = req.body;
 
@@ -52,16 +46,13 @@ app.post('/webhook', (req, res) => {
                 }
             });
         });
-
-        // Respond to Facebook with 200 OK
         res.status(200).send('EVENT_RECEIVED');
     } else {
-        // Return a 404 for non-page events
         res.sendStatus(404);
     }
 });
 
-// Function to send messages
+// MESSAGE
 function sendTextMessage(sender, text) {
     const messageData = { text: text };
 
@@ -82,6 +73,6 @@ function sendTextMessage(sender, text) {
     });
 }
 
-// Start the server
+// START SERVER
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Bot is running on port ${PORT}`));
