@@ -27,9 +27,9 @@ app.get('/webhook', (req, res) => {
 
 app.get('/', (req, res) => {
     res.send(`
-        <h1>Welcome to My Facebook Messenger Bot</h1>
-        <p>The bot is running successfully.</p>
-        <p>This URL is intended to handle Facebook webhook events, not serve a website.</p>
+        <h1>Front end log in????/h1>
+        <p>i dontk now. hero fucks me up.</p>
+
     `);
 });
 
