@@ -73,6 +73,34 @@ function sendTextMessage(sender, text) {
     });
 }
 
+//serve frontend
+
+const path = require('path');
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// Catch-all route for frontend
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
+
+
+//backend api login API
+
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Hardcoded credentials for simplicity
+    if (username === 'admin' && password === 'password') {
+        res.status(200).json({ message: 'Login successful' });
+    } else {
+        res.status(401).json({ error: 'Invalid credentials' });
+    }
+});
+
+
+
 // START SERVER
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Bot is running on port ${PORT}`));
