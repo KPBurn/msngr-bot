@@ -6,8 +6,11 @@ const request = require('request');
 require('dotenv').config(); // Load environment variables
 const app = express();
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Webhook Verification
 app.get('/webhook', (req, res) => {
     const VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'my_voice_is_my_password_verify_me';
 
@@ -18,31 +21,30 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-
+// Frontend
 app.get('/', (req, res) => {
     res.send(`
         <h1>Front end log in????<h1>
-        <p>i dontk now. heroku fucks me up.</p>
-
+        <p>I don't know. Heroku is acting up.</p>
     `);
 });
 
-// HANDLE MESSAGE
+// Handle Messenger Events
 app.post('/webhook', (req, res) => {
     const body = req.body;
 
     // Check if the event is from a page subscription
     if (body.object === 'page') {
         body.entry.forEach(entry => {
-            // Get the message event
             const messagingEvents = entry.messaging;
 
             messagingEvents.forEach(event => {
                 const sender = event.sender.id;
 
                 if (event.message && event.message.text) {
-                    const text = event.message.text;
-                    sendTextMessage(sender, `Text received, echo: ${text.substring(0, 200)}`);
+                    const userMessage = event.message.text.toLowerCase();
+                    const reply = generateReply(userMessage);
+                    sendTextMessage(sender, reply);
                 }
             });
         });
@@ -52,7 +54,22 @@ app.post('/webhook', (req, res) => {
     }
 });
 
-// MESSAGE
+// Generate Reply Based on User Message
+function generateReply(userMessage) {
+    if (userMessage.includes('hello') || userMessage.includes('hi')) {
+        return 'Hello! How can I assist you today?';
+    } else if (userMessage.includes('help')) {
+        return 'Sure, let me know what you need help with.';
+    } else if (userMessage.includes('thanks') || userMessage.includes('thank you')) {
+        return 'You’re welcome! Is there anything else I can help you with?';
+    } else if (userMessage.includes('bye')) {
+        return 'Goodbye! Have a great day!';
+    } else {
+        return `I'm sorry, I didn't quite understand that. Can you rephrase?`;
+    }
+}
+
+// Send Message Function
 function sendTextMessage(sender, text) {
     const messageData = { text: text };
 
@@ -73,25 +90,18 @@ function sendTextMessage(sender, text) {
     });
 }
 
-//serve frontend
-
+// Serve Frontend
 const path = require('path');
-
-// Serve static files
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-// Catch-all route for frontend
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
-
-//backend api login API
-
+// Backend API Login
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Hardcoded credentials for simplicity
     if (username === 'admin' && password === 'password') {
         res.status(200).json({ message: 'Login successful' });
     } else {
@@ -99,8 +109,6 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-
-
-// START SERVER
+// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Bot is running on port ${PORT}`));
