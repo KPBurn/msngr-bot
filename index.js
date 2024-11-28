@@ -4,17 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 require('dotenv').config(); // Load environment variables
-
 const app = express();
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// In-memory conversation state (for demo purposes; use a database in production)
-const userStates = {};
-
-// Webhook Verification
 app.get('/webhook', (req, res) => {
     const VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'my_voice_is_my_password_verify_me';
 
@@ -25,18 +18,31 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-// Webhook Endpoint for Message Handling
+
+app.get('/', (req, res) => {
+    res.send(`
+        <h1>Front end log in????<h1>
+        <p>i dontk now. heroku fucks me up.</p>
+
+    `);
+});
+
+// HANDLE MESSAGE
 app.post('/webhook', (req, res) => {
     const body = req.body;
 
+    // Check if the event is from a page subscription
     if (body.object === 'page') {
         body.entry.forEach(entry => {
-            entry.messaging.forEach(event => {
-                const senderId = event.sender.id;
+            // Get the message event
+            const messagingEvents = entry.messaging;
+
+            messagingEvents.forEach(event => {
+                const sender = event.sender.id;
 
                 if (event.message && event.message.text) {
-                    const userMessage = event.message.text;
-                    handleUserMessage(senderId, userMessage);
+                    const text = event.message.text;
+                    sendTextMessage(sender, `Text received, echo: ${text.substring(0, 200)}`);
                 }
             });
         });
@@ -46,59 +52,9 @@ app.post('/webhook', (req, res) => {
     }
 });
 
-// Function to Handle User Messages
-function handleUserMessage(senderId, userMessage) {
-    const currentState = userStates[senderId] || 'start';
-
-    let reply;
-    switch (currentState) {
-        case 'start':
-            reply = 'Welcome! How can I help you today? (e.g., "Help", "Order", "Feedback")';
-            userStates[senderId] = 'awaiting_response';
-            break;
-
-        case 'awaiting_response':
-            if (userMessage.toLowerCase().includes('help')) {
-                reply = 'Sure, I can help you. What do you need assistance with?';
-                userStates[senderId] = 'help_requested';
-            } else if (userMessage.toLowerCase().includes('order')) {
-                reply = 'Great! Please provide your order details.';
-                userStates[senderId] = 'order_details';
-            } else if (userMessage.toLowerCase().includes('feedback')) {
-                reply = 'We value your feedback. Please share it with us.';
-                userStates[senderId] = 'awaiting_feedback';
-            } else {
-                reply = 'I’m sorry, I didn’t understand that. Can you try again?';
-            }
-            break;
-
-        case 'help_requested':
-            reply = `Thank you for providing more details: "${userMessage}". We'll get back to you soon!`;
-            userStates[senderId] = 'start'; // Reset state
-            break;
-
-        case 'order_details':
-            reply = `Your order details: "${userMessage}" have been received. Thank you!`;
-            userStates[senderId] = 'start'; // Reset state
-            break;
-
-        case 'awaiting_feedback':
-            reply = `Thank you for your feedback: "${userMessage}". We appreciate it!`;
-            userStates[senderId] = 'start'; // Reset state
-            break;
-
-        default:
-            reply = 'Oops! Something went wrong. Let’s start over.';
-            userStates[senderId] = 'start'; // Reset state
-            break;
-    }
-
-    sendTextMessage(senderId, reply);
-}
-
-// Function to Send Messages via Messenger API
+// MESSAGE
 function sendTextMessage(sender, text) {
-    const messageData = { text };
+    const messageData = { text: text };
 
     request({
         url: 'https://graph.facebook.com/v16.0/me/messages',
@@ -116,6 +72,34 @@ function sendTextMessage(sender, text) {
         }
     });
 }
+
+//serve frontend
+
+const path = require('path');
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// Catch-all route for frontend
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
+
+
+//backend api login API
+
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Hardcoded credentials for simplicity
+    if (username === 'admin' && password === 'password') {
+        res.status(200).json({ message: 'Login successful' });
+    } else {
+        res.status(401).json({ error: 'Invalid credentials' });
+    }
+});
+
+
 
 // START SERVER
 const PORT = process.env.PORT || 5000;
