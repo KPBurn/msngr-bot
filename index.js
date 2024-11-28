@@ -34,7 +34,6 @@ function setupMessengerProfile() {
                 call_to_actions: [
                     {
                         type: "postback",
-                        title: "Restart Conversation",
                         payload: "RESTART_CONVERSATION"
                     },
                     {
