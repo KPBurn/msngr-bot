@@ -34,6 +34,7 @@ function setupMessengerProfile() {
                 call_to_actions: [
                     {
                         type: "postback",
+                        title: "Restart Conversation",
                         payload: "RESTART_CONVERSATION"
                     },
                     {
@@ -82,13 +83,12 @@ app.post('/webhook', (req, res) => {
                     const payload = event.postback.payload;
 
                     if (payload === "GET_STARTED") {
-                        sendTextMessage(sender, "Welcome! Thank you for starting the conversation. Do you agree to our Terms and Conditions?");
+                        sendTextMessage(sender, "Welcome! Thank you for starting the conversation.");
                         sendButtonMessage(sender);
                     } else if (payload === "AGREE_TERMS") {
                         sendTextMessage(sender, "Thank you for agreeing to the Terms and Conditions!");
                     } else if (payload === "RESTART_CONVERSATION") {
-                        sendTextMessage(sender, "Restarting the conversation...");
-                        sendTextMessage(sender, "Welcome back! How can I assist you today?");
+                        sendButtonMessage(sender); // Show Terms and Conditions immediately
                     } else {
                         sendTextMessage(sender, "I'm not sure what you meant. Please try again.");
                     }
