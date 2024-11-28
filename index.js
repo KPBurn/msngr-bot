@@ -21,13 +21,51 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-// Frontend
-app.get('/', (req, res) => {
-    res.send(`
-        <h1>Front end log in????<h1>
-        <p>I don't know. Heroku is acting up.</p>
-    `);
-});
+// Setup Get Started Button and Persistent Menu
+function setupMessengerProfile() {
+    const profileData = {
+        get_started: {
+            payload: "GET_STARTED"
+        },
+        persistent_menu: [
+            {
+                locale: "default",
+                composer_input_disabled: false,
+                call_to_actions: [
+                    {
+                        type: "postback",
+                        title: "Restart Conversation",
+                        payload: "RESTART_CONVERSATION"
+                    },
+                    {
+                        type: "web_url",
+                        title: "View Terms",
+                        url: "https://example.com/terms", // Replace with your terms URL
+                        webview_height_ratio: "full"
+                    }
+                ]
+            }
+        ]
+    };
+
+    request({
+        url: `https://graph.facebook.com/v16.0/me/messenger_profile`,
+        qs: { access_token: PAGE_ACCESS_TOKEN },
+        method: 'POST',
+        json: profileData
+    }, (error, response, body) => {
+        if (error) {
+            console.error('Error setting Messenger profile:', error);
+        } else if (response.body.error) {
+            console.error('Error in response:', response.body.error);
+        } else {
+            console.log('Messenger profile setup successfully');
+        }
+    });
+}
+
+// Call setup on server start
+setupMessengerProfile();
 
 // Handle Messenger Events
 app.post('/webhook', (req, res) => {
@@ -41,25 +79,27 @@ app.post('/webhook', (req, res) => {
             messagingEvents.forEach(event => {
                 const sender = event.sender.id;
 
-                if (event.message && event.message.text) {
-                    const userMessage = event.message.text.toLowerCase();
+                if (event.postback) {
+                    const payload = event.postback.payload;
 
-                    // Check for "terms" keyword to send a button
+                    if (payload === "GET_STARTED") {
+                        sendTextMessage(sender, "Welcome! Thank you for starting the conversation. Do you agree to our Terms and Conditions?");
+                        sendButtonMessage(sender);
+                    } else if (payload === "AGREE_TERMS") {
+                        sendTextMessage(sender, "Thank you for agreeing to the Terms and Conditions!");
+                    } else if (payload === "RESTART_CONVERSATION") {
+                        sendTextMessage(sender, "Restarting the conversation...");
+                        sendTextMessage(sender, "Welcome back! How can I assist you today?");
+                    } else {
+                        sendTextMessage(sender, "I'm not sure what you meant. Please try again.");
+                    }
+                } else if (event.message && event.message.text) {
+                    const userMessage = event.message.text.toLowerCase();
                     if (userMessage.includes('terms')) {
                         sendButtonMessage(sender);
                     } else {
                         const reply = generateReply(userMessage);
                         sendTextMessage(sender, reply);
-                    }
-                } else if (event.postback) {
-                    // Handle button postbacks
-                    const payload = event.postback.payload;
-
-                    if (payload === "AGREE_TERMS") {
-                        sendTextMessage(sender, "Thank you for agreeing to the Terms and Conditions!");
-                        console.log(`User ${sender} agreed to the terms.`);
-                    } else {
-                        sendTextMessage(sender, "I'm not sure what you meant. Please try again.");
                     }
                 }
             });
@@ -143,8 +183,6 @@ function sendButtonMessage(sender) {
             console.error('Error sending button message:', error);
         } else if (response.body.error) {
             console.error('Error in response:', response.body.error);
-        } else {
-            console.log(`Button message sent to ${sender}`);
         }
     });
 }
