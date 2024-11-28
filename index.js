@@ -43,8 +43,24 @@ app.post('/webhook', (req, res) => {
 
                 if (event.message && event.message.text) {
                     const userMessage = event.message.text.toLowerCase();
-                    const reply = generateReply(userMessage);
-                    sendTextMessage(sender, reply);
+
+                    // Check for "terms" keyword to send a button
+                    if (userMessage.includes('terms')) {
+                        sendButtonMessage(sender);
+                    } else {
+                        const reply = generateReply(userMessage);
+                        sendTextMessage(sender, reply);
+                    }
+                } else if (event.postback) {
+                    // Handle button postbacks
+                    const payload = event.postback.payload;
+
+                    if (payload === "AGREE_TERMS") {
+                        sendTextMessage(sender, "Thank you for agreeing to the Terms and Conditions!");
+                        console.log(`User ${sender} agreed to the terms.`);
+                    } else {
+                        sendTextMessage(sender, "I'm not sure what you meant. Please try again.");
+                    }
                 }
             });
         });
@@ -69,7 +85,7 @@ function generateReply(userMessage) {
     }
 }
 
-// Send Message Function
+// Send Text Message
 function sendTextMessage(sender, text) {
     const messageData = { text: text };
 
@@ -86,6 +102,49 @@ function sendTextMessage(sender, text) {
             console.error('Error sending messages:', error);
         } else if (response.body.error) {
             console.error('Error:', response.body.error);
+        }
+    });
+}
+
+// Send Button Message
+function sendButtonMessage(sender) {
+    const messageData = {
+        attachment: {
+            type: "template",
+            payload: {
+                template_type: "button",
+                text: "Do you agree to our Terms and Conditions?",
+                buttons: [
+                    {
+                        type: "postback",
+                        title: "I Agree",
+                        payload: "AGREE_TERMS"
+                    },
+                    {
+                        type: "web_url",
+                        title: "View Terms",
+                        url: "https://example.com/terms" // Replace with your terms URL
+                    }
+                ]
+            }
+        }
+    };
+
+    request({
+        url: 'https://graph.facebook.com/v16.0/me/messages',
+        qs: { access_token: PAGE_ACCESS_TOKEN },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData
+        }
+    }, (error, response, body) => {
+        if (error) {
+            console.error('Error sending button message:', error);
+        } else if (response.body.error) {
+            console.error('Error in response:', response.body.error);
+        } else {
+            console.log(`Button message sent to ${sender}`);
         }
     });
 }
