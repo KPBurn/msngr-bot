@@ -1,22 +1,25 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div
-    class="w-full w-[30rem] p-8 bg-white rounded-lg shadow-lg border border-gray-200"
+    class="w-full w-[30rem] px-[30px] py-[100px] bg-white rounded-lg shadow-lg"
   >
     <div class="mb-10">
+      <img class="img-logo" src="assets/images/discartlogo.png" />
       <p class="font-bold text-center text-[32px] text-black">
         Welcome to Discart.
       </p>
+      <p class="text-center font-[300]">
+        You may now login to manage your account securely.
+      </p>
     </div>
 
-    <app-login-form [loginFormGroup]="loginFormGroup"></app-login-form>
+    <div class="px-[30px]">
+      <app-login-form [loginFormGroup]="loginFormGroup"></app-login-form>
+    </div>
 
-    <div class="text-center mt-4">
-      <p class="text-sm text-gray-500">
-        Don't have an account?
-        <a class="text-blue-500 hover:underline" href="mailto:"
-          >Contact an administrator</a
-        >
-      </p>
+    <div class="px-[30px] mt-2">
+      <button mat-flat-button class="login-btn w-full rounded-lg">
+        Log In
+      </button>
     </div>
   </div>
 </div>
