@@ -1,0 +1,20 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div
+    class="w-full max-w-sm p-8 bg-white rounded-lg shadow-lg border border-gray-200"
+  >
+    <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">
+      Client Sign In
+    </h2>
+
+    <app-login-form [loginFormGroup]="loginFormGroup"></app-login-form>
+
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-500">
+        Don't have an account?
+        <a class="text-blue-500 hover:underline" href="mailto:"
+          >Contact an administrator</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

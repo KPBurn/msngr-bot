@@ -1,0 +1,61 @@
+@use "@angular/material" as mat;
+@use "@material/textfield";
+
+@include mat.core();
+
+$montserrat-typography: mat.define-typography-config(
+  $font-family: '"Montserrat", sans-serif',
+);
+
+@include mat.typography-hierarchy($montserrat-typography);
+@include mat.all-component-typographies($montserrat-typography);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+.dark-custom-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #2b2b2b;
+}
+
+[dir="rtl"] .mat-calendar-body-label {
+  text-align: right;
+}
+
+.custom-snackbar-success {
+  .mdc-snackbar__surface {
+    background: #2e7d32 !important;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 1000;
+  white-space: nowrap;
+  pointer-events: none;
+}
