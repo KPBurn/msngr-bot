@@ -10,8 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'client/login',
-        // redirectTo: 'super-admin/login',
+        // redirectTo: 'client/login',
+        redirectTo: 'super-admin/login',
         pathMatch: 'full',
       },
       {

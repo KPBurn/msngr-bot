@@ -17,7 +17,7 @@ export class SuperAdminLoginComponent {
     this.loginFormGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      userType: ['client'],
+      userType: ['superAdmin'],
     });
   }
 
