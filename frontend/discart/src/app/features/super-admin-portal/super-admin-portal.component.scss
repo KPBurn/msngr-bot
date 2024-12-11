@@ -1,0 +1,39 @@
+.portal-sidebar {
+  width: 250px !important;
+
+  mat-nav-list {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  mat-list-item {
+    height: unset !important;
+    padding: 8px !important;
+
+    ::ng-deep .mat-mdc-list-item-unscoped-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
+
+.portal-sidenav-content {
+  margin-left: 250px !important;
+}
+
+.portal-navbar.mat-toolbar-row,
+.portal-navbar.mat-toolbar-single-row {
+  height: 60px;
+  background-color: var(--white);
+}
+
+::ng-deep .mat-list .mat-list-item .mat-line {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+::ng-deep .mat-list .mat-list-item {
+  height: initial !important;
+}

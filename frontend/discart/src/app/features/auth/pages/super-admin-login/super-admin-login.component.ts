@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-super-admin-login',
@@ -11,12 +12,12 @@ export class SuperAdminLoginComponent {
   showPassword = false;
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loginFormGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['test@gmail.com', [Validators.required, Validators.email]],
+      password: ['password123', [Validators.required, Validators.minLength(6)]],
       userType: ['superAdmin'],
     });
   }
@@ -25,6 +26,8 @@ export class SuperAdminLoginComponent {
     if (this.loginFormGroup.valid) {
       this.isLoading = true;
       console.log(this.loginFormGroup.value);
+      console.log('Navigating to dashboard...');
+      this.router.navigate(['/super-admin/portal/dashboard']);
     } else {
       this.loginFormGroup.markAllAsTouched();
     }

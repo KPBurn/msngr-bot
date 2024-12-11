@@ -6,11 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    canActivate: [],
+    // canActivate: [],
     children: [
       {
         path: '',
-        // redirectTo: 'client/login',
         redirectTo: 'super-admin/login',
         pathMatch: 'full',
       },

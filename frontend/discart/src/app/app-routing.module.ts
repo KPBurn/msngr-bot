@@ -7,6 +7,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
+  // {
+  //   path: 'client/portal',
+  //   loadChildren: () =>
+  //     import('./features/client-portal/client-portal.module').then(
+  //       (m) => m.ClientPortalModule
+  //     ),
+  // },
+  {
+    path: 'super-admin/portal',
+    loadChildren: () =>
+      import('./features/super-admin-portal/super-admin-portal.module').then(
+        (m) => m.SuperAdminPortalModule
+      ),
+  },
   {
     path: '**',
     redirectTo: 'auth',
