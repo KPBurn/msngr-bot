@@ -1,1 +1,23 @@
-<p>super-admin-login works!</p>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-[30rem] px-[30px] py-[100px] bg-white rounded-lg shadow-lg">
+    <div class="mb-10">
+      <img class="img-logo" src="assets/images/discartlogo.png" />
+      <p class="font-bold text-center text-[32px] text-black">
+        Welcome to Discart.
+      </p>
+      <p class="text-center font-[300]">
+        You may now login to manage your account securely.
+      </p>
+    </div>
+
+    <div class="px-[30px]">
+      <app-login-form [loginFormGroup]="loginFormGroup"></app-login-form>
+    </div>
+
+    <div class="px-[30px] mt-2">
+      <button mat-flat-button class="login-btn w-full rounded-lg">
+        Log In
+      </button>
+    </div>
+  </div>
+</div>
