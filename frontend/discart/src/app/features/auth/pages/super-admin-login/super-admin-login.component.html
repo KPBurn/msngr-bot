@@ -5,7 +5,9 @@
       <p class="font-bold text-center text-[32px] text-black">
         Welcome to Discart.
       </p>
-      <p class="text-center font-[300]">Client Log In</p>
+      <p class="text-center font-[300]">
+        You may now login to manage your account securely.
+      </p>
     </div>
 
     <div class="px-[30px]">
@@ -13,7 +15,11 @@
     </div>
 
     <div class="px-[30px] mt-2">
-      <button mat-flat-button class="login-btn w-full rounded-lg">
+      <button
+        mat-flat-button
+        class="login-btn w-full rounded-lg"
+        (click)="onSubmit()"
+      >
         Log In
       </button>
     </div>

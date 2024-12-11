@@ -10,13 +10,21 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'client/login',
+        // redirectTo: 'client/login',
+        redirectTo: 'super-admin/login',
         pathMatch: 'full',
       },
       {
         path: 'client/login',
         loadChildren: () =>
           import('./pages/login/login.module').then((m) => m.LoginModule),
+      },
+      {
+        path: 'super-admin/login',
+        loadChildren: () =>
+          import('./pages/super-admin-login/super-admin-login.module').then(
+            (m) => m.SuperAdminLoginModule
+          ),
       },
     ],
   },
