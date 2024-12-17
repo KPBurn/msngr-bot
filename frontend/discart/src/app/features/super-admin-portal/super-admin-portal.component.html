@@ -1,2 +1,41 @@
-<p>super-admin-portal works!</p>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav
+    #sidenav
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false && isOpen"
+    class="portal-sidebar"
+    [ngClass]="{
+      'is-handset': (isHandset$ | async) === true
+    }"
+  >
+    <mat-nav-list class="h-full flex flex-col" *ngFor="let nav of navLink">
+      <img class="img-logo" src="assets/images/discartlogo.png" />
+      <mat-list-item
+        *ngFor="let link of nav.links"
+        [routerLink]="link.route"
+        routerLinkActive="nav-link-active"
+        #rla="routerLinkActive"
+        [matTooltip]="link.label"
+        matTooltipPosition="after"
+      >
+        <mat-icon [fontIcon]="link.icon" matListItemIcon />
+        <a class="text-sm text-balance font-semibold leading-4">
+          {{ link.label }}
+        </a>
+      </mat-list-item>
+
+      <mat-list-item class="logout-btn">
+        <mat-icon fontIcon="logout" matListItemIcon />
+        <a class="text-sm text-balance font-semibold leading-4">Logout</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content
+    [class.portal-sidenav-content]="isOpen && !(isHandset$ | async)"
+  >
+    <div class="h-screen px-5 py-5 bg-gray-200 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

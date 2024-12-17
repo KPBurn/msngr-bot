@@ -5,6 +5,25 @@
     display: flex !important;
     flex-direction: column;
     gap: 4px;
+
+    .nav-link-active {
+      mat-icon,
+      a {
+        color: #13e7d9 !important;
+      }
+      background-color: #f7f7fb !important;
+      border-right: 5px solid #13e7d9;
+    }
+
+    .img-logo {
+      width: 155px;
+      height: 59px;
+      margin: 0 auto 25px auto;
+    }
+
+    mat-list-item.logout-btn {
+      margin-top: auto;
+    }
   }
 
   mat-list-item {

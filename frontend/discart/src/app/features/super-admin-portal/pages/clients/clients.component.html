@@ -1,1 +1,24 @@
-<p>clients works!</p>
+<p class="text-[20px] font-bold">Manage your clients</p>
+<p class="font-light">
+  Click on the details to modify your Clients and view voucher redemption
+  performance history
+</p>
+
+<div class="mt-6 flex flex-wrap space-x-4">
+  <mat-radio-group
+    aria-label="Select an option"
+    class="bg-white rounded-lg px-3 font-medium"
+  >
+    <mat-radio-button value="all">All</mat-radio-button>
+    <mat-radio-button value="active">Active</mat-radio-button>
+    <mat-radio-button value="inactive">Inactive</mat-radio-button>
+  </mat-radio-group>
+
+  <button
+    mat-flat-button
+    class="m-auto btn-bright-turquoise"
+    (click)="clientModal()"
+  >
+    Add Client
+  </button>
+</div>

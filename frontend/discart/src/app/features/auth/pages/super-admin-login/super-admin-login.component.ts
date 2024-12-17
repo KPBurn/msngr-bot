@@ -26,8 +26,8 @@ export class SuperAdminLoginComponent {
     if (this.loginFormGroup.valid) {
       this.isLoading = true;
       console.log(this.loginFormGroup.value);
-      console.log('Navigating to dashboard...');
-      this.router.navigate(['/super-admin/portal/dashboard']);
+      console.log('Navigating to customers...');
+      this.router.navigate(['/super-admin/portal/customers']);
     } else {
       this.loginFormGroup.markAllAsTouched();
     }

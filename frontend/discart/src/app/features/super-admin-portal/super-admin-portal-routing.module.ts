@@ -10,19 +10,36 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard',
+        redirectTo: 'customers',
       },
       {
-        path: 'dashboard',
+        path: 'customers',
         loadChildren: () =>
-          import('./pages/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
+          import('./pages/customers/customers.module').then(
+            (m) => m.CustomersModule
+          ),
+      },
+      {
+        path: 'campaigns',
+        loadChildren: () =>
+          import('./pages/campaigns/campaigns.module').then(
+            (m) => m.CampaignsModule
           ),
       },
       {
         path: 'clients',
         loadChildren: () =>
           import('./pages/clients/clients.module').then((m) => m.ClientsModule),
+      },
+      {
+        path: 'brands',
+        loadChildren: () =>
+          import('./pages/brands/brands.module').then((m) => m.BrandsModule),
+      },
+      {
+        path: 'store',
+        loadChildren: () =>
+          import('./pages/store/store.module').then((m) => m.StoreModule),
       },
     ],
   },
