@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientFormStructure } from 'src/app/shared/interface/shared-form.interface';
-import { clientFormConfig } from './upsert-client/upsert-client-config';
 import { SharedFormComponent } from 'src/app/shared/components/shared-form/shared-form.component';
+import { MatDialog } from '@angular/material/dialog';
+import { clientFormConfig } from './upsert-client-dialog/upsert-client-config';
 
 @Component({
   selector: 'app-clients',
@@ -11,9 +12,9 @@ import { SharedFormComponent } from 'src/app/shared/components/shared-form/share
 export class ClientsComponent implements OnInit {
   @ViewChild(SharedFormComponent) sharedFormComponent!: SharedFormComponent;
 
-  clientForm: ClientFormStructure = clientFormConfig;
+  clientFormConfig: ClientFormStructure = clientFormConfig;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -25,7 +26,5 @@ export class ClientsComponent implements OnInit {
     this.sharedFormComponent.emitFormValue();
   }
 
-  clientModal() {
-    console.log('client modal');
-  }
+  upsertClientDialog(data?: any) {}
 }

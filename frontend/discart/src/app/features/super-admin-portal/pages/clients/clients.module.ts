@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { UpsertClientComponent } from './upsert-client/upsert-client.component';
+import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-client-dialog.component';
 
 @NgModule({
-  declarations: [ClientsComponent, UpsertClientComponent],
+  declarations: [ClientsComponent, UpsertClientDialogComponent],
   imports: [CommonModule, ClientsRoutingModule, SharedModule],
 })
 export class ClientsModule {}

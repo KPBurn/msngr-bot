@@ -17,14 +17,14 @@
   <button
     mat-flat-button
     class="m-auto btn-bright-turquoise"
-    (click)="clientModal()"
+    (click)="upsertClientDialog()"
   >
     Add Client
   </button>
 </div>
 
 <div class="p-5 w-full">
-  <app-shared-form [form]="clientForm" (formValue)="formValue($event)" />
+  <app-shared-form [form]="clientFormConfig" (formValue)="formValue($event)" />
 
   <button mat-flat-button (click)="handleSubmit()" class="btn-bright-turquoise">
     Submit Form
