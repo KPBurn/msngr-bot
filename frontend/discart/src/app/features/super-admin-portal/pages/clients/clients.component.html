@@ -22,3 +22,11 @@
     Add Client
   </button>
 </div>
+
+<div class="p-5 w-full">
+  <app-shared-form [form]="clientForm" (formValue)="formValue($event)" />
+
+  <button mat-flat-button (click)="handleSubmit()" class="btn-bright-turquoise">
+    Submit Form
+  </button>
+</div>
