@@ -1,10 +1,10 @@
 <form [formGroup]="dynamicForm">
-  <p class="font-bold text-[32px]">{{ formConfig.header }}</p>
-  <p class="font-[20px]">{{ formConfig.description }}</p>
+  <p class="font-bold text-[32px] text-black">{{ formConfig.header }}</p>
+  <p class="font-[20px] text-black">{{ formConfig.description }}</p>
 
   <div *ngFor="let form of formConfig?.forms" class="flex flex-col space-y-4">
     <div *ngIf="form.type === 'text'">
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full mb-2">
         <mat-label>{{ form.label }} </mat-label>
         <input matInput type="text" [formControlName]="form.name" />
         <mat-error
@@ -20,7 +20,7 @@
     </div>
 
     <div *ngIf="form.type === 'email'">
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full mb-2">
         <mat-label>{{ form.label }} </mat-label>
         <input matInput type="email" [formControlName]="form.name" />
         <mat-error

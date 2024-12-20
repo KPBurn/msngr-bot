@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClientFormStructure } from 'src/app/shared/interface/shared-form.interface';
-import { SharedFormComponent } from 'src/app/shared/components/shared-form/shared-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { clientFormConfig } from './upsert-client-dialog/upsert-client-config';
+import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-client-dialog.component';
 
 @Component({
   selector: 'app-clients',
@@ -10,21 +10,21 @@ import { clientFormConfig } from './upsert-client-dialog/upsert-client-config';
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit {
-  @ViewChild(SharedFormComponent) sharedFormComponent!: SharedFormComponent;
-
   clientFormConfig: ClientFormStructure = clientFormConfig;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
-  formValue(formData: any) {
-    console.log('Form data received from child:', formData);
-  }
+  upsertClientDialog(data?: any) {
+    const dialogRef = this.dialog.open(UpsertClientDialogComponent, {
+      disableClose: true,
+      width: '28%',
+      maxHeight: '750px',
+    });
 
-  handleSubmit() {
-    this.sharedFormComponent.emitFormValue();
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(result);
+    });
   }
-
-  upsertClientDialog(data?: any) {}
 }

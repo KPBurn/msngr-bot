@@ -1,1 +1,28 @@
-<p>upsert-client-dialog works!</p>
+<div class="py-10 px-5 md:px-20">
+  <img class="img-logo mx-auto" src="assets/images/discartlogo.png" />
+
+  <app-shared-form [form]="clientFormConfig" (formValue)="formValue($event)" />
+
+  <div class="flex flex-col space-y-3 w-full mb-5">
+    <button
+      mat-flat-button
+      (click)="handleSubmit()"
+      class="rounded-lg btn-bright-turquoise"
+    >
+      Done
+    </button>
+    <button
+      mat-flat-button
+      [mat-dialog-close]="true"
+      class="rounded-lg btn-dark"
+      cdkFocusInitial
+    >
+      Cancel
+    </button>
+  </div>
+
+  <p class="text-center text-sm md:text-base">
+    Need help? Contact us at
+    <a href="mailto: support@sysid.co"><span>support&#64;sysid.co</span></a>
+  </p>
+</div>
