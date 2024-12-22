@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientFormStructure } from 'src/app/shared/models/myClientsform.interface';
+import { myClientForm } from 'src/app/shared/models/myClientform.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { clientFormConfig } from './upsert-client-dialog/upsert-client-config';
+import { myClientFormConfig } from './upsert-client-dialog/upsert-client-config';
 import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-client-dialog.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-clien
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit {
-  clientFormConfig: ClientFormStructure = clientFormConfig;
+  myClientFormConfig: myClientForm = myClientFormConfig;
 
   constructor(private dialog: MatDialog) {}
 

@@ -1,6 +1,6 @@
-import { ClientFormStructure } from 'src/app/shared/models/myClientsform.interface';
+import { myClientForm } from 'src/app/shared/models/myClientform.interface';
 
-export const clientFormConfig: ClientFormStructure = {
+export const myClientFormConfig: myClientForm = {
   header: 'Add a client to manage',
   description:
     'Enter details of nominated client admin to create their account. Once added, an email will be sent to with a unique link to complete their account setup.',
