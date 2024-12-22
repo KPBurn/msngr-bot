@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientFormStructure } from 'src/app/shared/interface/shared-form.interface';
+import { ClientFormStructure } from 'src/app/shared/models/myClientsform.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { clientFormConfig } from './upsert-client-dialog/upsert-client-config';
 import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-client-dialog.component';

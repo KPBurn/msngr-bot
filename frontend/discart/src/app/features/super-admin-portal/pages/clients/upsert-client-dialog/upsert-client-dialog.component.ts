@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { SharedFormComponent } from 'src/app/shared/components/shared-form/shared-form.component';
-import { ClientFormStructure } from 'src/app/shared/interface/shared-form.interface';
+import { ClientFormStructure } from 'src/app/shared/models/myClientsform.interface';
 import { clientFormConfig } from './upsert-client-config';
 
 @Component({
@@ -18,7 +18,7 @@ export class UpsertClientDialogComponent {
   ngOnInit(): void {}
 
   formValue(formData: any) {
-    console.log('Form data received from child:', formData);
+    console.log('Form data from shared form component:', formData);
   }
 
   handleSubmit() {

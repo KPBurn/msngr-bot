@@ -1,4 +1,4 @@
-import { ClientFormStructure } from 'src/app/shared/interface/shared-form.interface';
+import { ClientFormStructure } from 'src/app/shared/models/myClientsform.interface';
 
 export const clientFormConfig: ClientFormStructure = {
   header: 'Add a client to manage',
