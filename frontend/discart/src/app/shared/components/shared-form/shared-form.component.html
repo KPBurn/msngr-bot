@@ -1,36 +1,36 @@
-<form [formGroup]="dynamicForm">
+<form [formGroup]="form">
   <p class="font-bold text-[32px] text-black">{{ formConfig.header }}</p>
   <p class="font-[20px] text-black">{{ formConfig.description }}</p>
 
-  <div *ngFor="let form of formConfig?.forms" class="flex flex-col space-y-4">
-    <div *ngIf="form.type === 'text'">
+  <div *ngFor="let config of formConfig?.forms" class="flex flex-col space-y-4">
+    <div *ngIf="config.type === 'text'">
       <mat-form-field class="w-full mb-2">
-        <mat-label>{{ form.label }} </mat-label>
-        <input matInput type="text" [formControlName]="form.name" />
+        <mat-label>{{ config.label }} </mat-label>
+        <input matInput type="text" [formControlName]="config.name" />
         <mat-error
           *ngIf="
-            dynamicForm.controls[form.name]?.invalid &&
-            dynamicForm.controls[form.name]?.touched &&
-            form.validations.length > 0
+            form.controls[config.name]?.invalid &&
+            form.controls[config.name]?.touched &&
+            config.validations.length > 0
           "
         >
-          {{ getErrorMessage(form) }}
+          {{ getErrorMessage(config) }}
         </mat-error>
       </mat-form-field>
     </div>
 
-    <div *ngIf="form.type === 'email'">
+    <div *ngIf="config.type === 'email'">
       <mat-form-field class="w-full mb-2">
-        <mat-label>{{ form.label }} </mat-label>
-        <input matInput type="email" [formControlName]="form.name" />
+        <mat-label>{{ config.label }} </mat-label>
+        <input matInput type="email" [formControlName]="config.name" />
         <mat-error
           *ngIf="
-            dynamicForm.controls[form.name]?.invalid &&
-            dynamicForm.controls[form.name]?.touched &&
-            form.validations.length > 0
+            form.controls[config.name]?.invalid &&
+            form.controls[config.name]?.touched &&
+            config.validations.length > 0
           "
         >
-          {{ getErrorMessage(form) }}
+          {{ getErrorMessage(config) }}
         </mat-error>
       </mat-form-field>
     </div>

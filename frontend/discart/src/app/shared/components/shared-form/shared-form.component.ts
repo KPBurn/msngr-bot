@@ -13,17 +13,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./shared-form.component.scss'],
 })
 export class SharedFormComponent {
-  @Input() form: any;
+  @Input() formConfig: any;
   @Output() formValue: EventEmitter<any> = new EventEmitter<any>();
 
-  formConfig: any;
-  dynamicForm: FormGroup = this.fb.group({});
+  form: FormGroup = this.fb.group({});
 
   constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['form'] && this.form) {
-      this.formConfig = this.form;
+    if (changes['formConfig'] && this.formConfig) {
       this.initForm();
     }
   }
@@ -46,11 +44,11 @@ export class SharedFormComponent {
       formGroup[form.name] = [form.value || '', controlValidators];
     });
 
-    this.dynamicForm = this.fb.group(formGroup);
+    this.form = this.fb.group(formGroup);
   }
 
   getErrorMessage(control: any) {
-    const formControl = this.dynamicForm.get(control.name);
+    const formControl = this.form.get(control.name);
 
     if (!control) {
       return '';
@@ -66,10 +64,10 @@ export class SharedFormComponent {
   }
 
   emitFormValue() {
-    if (!this.dynamicForm.valid) {
-      this.dynamicForm.markAllAsTouched();
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
       return;
     }
-    this.formValue.emit(this.dynamicForm.value);
+    this.formValue.emit(this.form.value);
   }
 }
