@@ -11,10 +11,12 @@ export interface myClientFields {
   name: string;
   value: string | number | boolean;
   options?: { label: string; value: number | string | boolean }[];
-  validations: {
-    name?: string;
-    validator?: string;
-    message?: string;
-    pattern?: string;
-  }[];
+  validations: Validation[];
+}
+
+export interface Validation {
+  name?: string;
+  validator?: string;
+  message?: string;
+  pattern?: string;
 }

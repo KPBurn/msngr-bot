@@ -5,4 +5,5 @@ export interface myClient {
   createdAt?: Date;
   updatedAt?: Date;
   isActive?: boolean;
+  superAdminId?: string;
 }
