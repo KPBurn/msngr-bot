@@ -2,6 +2,7 @@
   <img class="img-logo mx-auto" src="assets/images/discartlogo.png" />
 
   <app-shared-form
+    #myClientForm
     [formConfig]="myClientFormConfig"
     (formValue)="formValue($event)"
   />
@@ -9,6 +10,7 @@
   <div class="flex flex-col space-y-3 w-full mb-5">
     <button
       mat-flat-button
+      [disabled]="myClientForm.form.invalid"
       (click)="handleSubmit()"
       class="rounded-lg btn-bright-turquoise"
     >

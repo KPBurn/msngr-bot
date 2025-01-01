@@ -60,12 +60,12 @@ body {
   pointer-events: none;
 }
 
-.btn-bright-turquoise {
+.btn-bright-turquoise:not([disabled]) {
   background-color: #13e7d9 !important;
   color: #ffffff !important;
 }
 
-.btn-dark {
+.btn-dark:not([disabled]) {
   background-color: #000000 !important;
   color: #ffffff !important;
 }

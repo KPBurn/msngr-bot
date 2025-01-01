@@ -1,5 +1,7 @@
 <form [formGroup]="form">
-  <p class="font-bold text-[32px] text-black">{{ formConfig.header }}</p>
+  <p class="font-bold text-[30px] text-black leading-[25px] text-center">
+    {{ formConfig.header }}
+  </p>
   <p class="font-[20px] text-black">{{ formConfig.description }}</p>
 
   <div *ngFor="let config of formConfig?.forms" class="flex flex-col space-y-4">

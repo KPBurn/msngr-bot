@@ -9,7 +9,7 @@ export const myClientFormConfig: myClientForm = {
       type: 'text',
       label: 'Client Name',
       name: 'clientName',
-      value: '',
+      value: 'test',
       validations: [
         {
           validator: 'required',
@@ -21,7 +21,7 @@ export const myClientFormConfig: myClientForm = {
       type: 'text',
       label: 'Account Holder Name',
       name: 'accHolderName',
-      value: '',
+      value: 'test',
       validations: [
         {
           validator: 'required',
@@ -33,7 +33,7 @@ export const myClientFormConfig: myClientForm = {
       type: 'email',
       label: 'Email',
       name: 'email',
-      value: '',
+      value: 'test@gmail.com',
       validations: [
         {
           validator: 'required',

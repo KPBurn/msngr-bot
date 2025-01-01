@@ -22,15 +22,33 @@ export class UpsertClientDialogComponent {
 
   formValue(formData: myClient) {
     console.log('Form data from shared form component:', formData);
+    if (formData)
+      this.openAlertDialog(
+        'Success! Your Client has been created.',
+        'We will send the invitation link to provided email shortly. Please check client email inbox to proceed.',
+        'success',
+        'Confirm'
+      );
   }
 
   handleSubmit() {
     this.myClientForm.emitFormValue();
-    console.log(this.myClientForm.form.invalid);
-    // this.alertDialog();
   }
 
-  alertDialog() {
-    this.dialog.open(AlertDialogComponent);
+  openAlertDialog(
+    header: string,
+    message: string,
+    type: string,
+    btnText: string
+  ) {
+    this.dialog.open(AlertDialogComponent, {
+      data: {
+        header: header,
+        message: message,
+        type: type,
+        btnText: btnText,
+      },
+      width: '25%',
+    });
   }
 }

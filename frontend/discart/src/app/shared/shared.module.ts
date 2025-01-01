@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { SharedFormModule } from './components/shared-form/shared-form.module';
+import { AlertDialogModule } from './components/alert-dialog/alert-dialog.module';
 
 @NgModule({
   declarations: [],
@@ -12,6 +13,7 @@ import { SharedFormModule } from './components/shared-form/shared-form.module';
     ReactiveFormsModule,
     MaterialModule,
     SharedFormModule,
+    AlertDialogModule,
   ],
   exports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { SharedFormModule } from './components/shared-form/shared-form.module';
     ReactiveFormsModule,
     MaterialModule,
     SharedFormModule,
+    AlertDialogModule,
   ],
 })
 export class SharedModule {}

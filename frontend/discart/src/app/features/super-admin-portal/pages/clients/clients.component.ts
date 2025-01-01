@@ -19,7 +19,7 @@ export class ClientsComponent implements OnInit {
   upsertClientDialog(data?: any) {
     const dialogRef = this.dialog.open(UpsertClientDialogComponent, {
       disableClose: true,
-      width: '28%',
+      width: '27%',
       maxHeight: '750px',
     });
 
