@@ -3,6 +3,7 @@ import { myClientForm } from 'src/app/shared/models/myClientform.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { myClientFormConfig } from './upsert-client-dialog/upsert-client-config';
 import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-client-dialog.component';
+import { mockDataClients, myClientTableCol } from './my-client-config';
 
 @Component({
   selector: 'app-clients',
@@ -11,12 +12,19 @@ import { UpsertClientDialogComponent } from './upsert-client-dialog/upsert-clien
 })
 export class ClientsComponent implements OnInit {
   myClientFormConfig: myClientForm = myClientFormConfig;
+  mockData = mockDataClients;
+  tableCol = myClientTableCol;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
-  upsertClientDialog(data?: any) {
+  onClickAction(data: any) {
+    if (data.action === 'edit') this.clientDialog(data.row);
+    else console.log(data, 'ACTION');
+  }
+
+  clientDialog(data?: any) {
     const dialogRef = this.dialog.open(UpsertClientDialogComponent, {
       disableClose: true,
       width: '27%',

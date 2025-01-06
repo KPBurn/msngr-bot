@@ -4,7 +4,7 @@
   performance history
 </p>
 
-<div class="mt-6 flex flex-wrap space-x-4">
+<div class="mt-6 mb-4 flex flex-wrap space-x-4">
   <mat-radio-group
     aria-label="Select an option"
     class="bg-white rounded-lg px-3 font-medium"
@@ -17,8 +17,16 @@
   <button
     mat-flat-button
     class="m-auto btn-bright-turquoise"
-    (click)="upsertClientDialog()"
+    (click)="clientDialog()"
   >
     Add Client
   </button>
 </div>
+
+<app-shared-table
+  [tableData]="mockData"
+  [tableColumns]="tableCol"
+  [isPageable]="true"
+  [showActionButton]="true"
+  (rowAction)="onClickAction($event)"
+/>
