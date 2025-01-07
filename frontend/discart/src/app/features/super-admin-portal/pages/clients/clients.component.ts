@@ -29,6 +29,9 @@ export class ClientsComponent implements OnInit {
       disableClose: true,
       width: '27%',
       maxHeight: '750px',
+      data: {
+        myClient: data,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -12,13 +13,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './shared-form.component.html',
   styleUrls: ['./shared-form.component.scss'],
 })
-export class SharedFormComponent {
+export class SharedFormComponent implements OnInit {
   @Input() formConfig: any;
-  @Output() formValue: EventEmitter<any> = new EventEmitter<any>();
+  @Input() formValue: any;
+  @Output() emitFormValue: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup = this.fb.group({});
 
   constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['formConfig'] && this.formConfig) {
@@ -28,6 +32,7 @@ export class SharedFormComponent {
 
   initForm() {
     let formGroup: Record<string, any> = {};
+
     this.formConfig.forms.forEach((form: any) => {
       let controlValidators: Validators[] = [];
 
@@ -45,6 +50,10 @@ export class SharedFormComponent {
     });
 
     this.form = this.fb.group(formGroup);
+
+    if (this.formValue) {
+      this.form.patchValue(this.formValue.myClient);
+    }
   }
 
   getErrorMessage(control: any) {
@@ -63,11 +72,11 @@ export class SharedFormComponent {
     return '';
   }
 
-  emitFormValue() {
+  emitValue() {
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
     }
-    this.formValue.emit(this.form.value);
+    this.emitFormValue.emit(this.form.value);
   }
 }

@@ -1,6 +1,6 @@
 export interface myClient {
   clientName: string;
-  accountHolderName: string;
+  accHolderName: string;
   email: string;
   createdAt?: Date;
   updatedAt?: Date;

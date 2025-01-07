@@ -4,7 +4,8 @@
   <app-shared-form
     #myClientForm
     [formConfig]="myClientFormConfig"
-    (formValue)="formValue($event)"
+    [formValue]="myClientData"
+    (emitFormValue)="emitFormValue($event)"
   />
 
   <div class="flex flex-col space-y-3 w-full mb-5">
@@ -18,7 +19,7 @@
     </button>
     <button
       mat-flat-button
-      [mat-dialog-close]="true"
+      mat-dialog-close
       class="rounded-lg btn-dark"
       cdkFocusInitial
     >

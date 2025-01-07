@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { SharedFormComponent } from 'src/app/shared/components/shared-form/shared-form.component';
 import { myClientForm } from 'src/app/shared/models/myClientform.interface';
 import { myClientFormConfig } from './upsert-client-config';
 import { myClient } from 'src/app/shared/models/myClient.interface';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
@@ -16,11 +16,14 @@ export class UpsertClientDialogComponent {
 
   myClientFormConfig: myClientForm = myClientFormConfig;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public myClientData: myClient,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
 
-  formValue(formData: myClient) {
+  emitFormValue(formData: myClient) {
     console.log('Form data from shared form component:', formData);
     if (formData)
       this.openAlertDialog(
@@ -32,7 +35,7 @@ export class UpsertClientDialogComponent {
   }
 
   handleSubmit() {
-    this.myClientForm.emitFormValue();
+    this.myClientForm.emitValue();
   }
 
   openAlertDialog(
